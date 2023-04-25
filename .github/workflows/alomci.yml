@@ -1,7 +1,7 @@
 name: Alom CI
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
     
 jobs:
   build:
@@ -12,10 +12,14 @@ jobs:
         fetch-depth: 0
 
     - name: Setup JDK 11
-      uses: actions/setup-java@3
+      uses: actions/setup-java@v3
       with:
-        distribution: "zulu"
-        java-version: 11
+        java-version: '11'
+        distribution: 'zulu'
+        cache: gradle
+        
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
 
     - name: Setup Android SDK
       uses: android-actions/setup-android@v2
@@ -29,9 +33,7 @@ jobs:
         keys: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/buildSrc/**/*.kt') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
-            
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+          
 
     - name: Build Debug APK
       run: bash ./gradlew assembleDebug --stacktrace
