@@ -30,7 +30,7 @@ jobs:
         path: |
           ~/.gradle/caches
           ~/.gradle/wrapper
-        keys: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/buildSrc/**/*.kt') }}
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/buildSrc/**/*.kt') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
     
