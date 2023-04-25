@@ -43,6 +43,7 @@ fun AttendanceScreen() {
             ) {
                 Text(
                     "현재 시간은",
+                    fontSize = 14.sp,
                 )
                 Text(
                     "00월 00일 00시 00분 00초",
