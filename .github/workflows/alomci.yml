@@ -25,7 +25,7 @@ jobs:
       uses: android-actions/setup-android@v2
 
     - name: Cache Gradle packages
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           ~/.gradle/caches
@@ -33,11 +33,10 @@ jobs:
         keys: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/buildSrc/**/*.kt') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
+    
+    - name: Run ktlint
+      run: ./gradlew ktlintCheck
           
-
-    - name: Build Debug APK
-      run: bash ./gradlew assembleDebug --stacktrace
-
     - name: Build Release APK
       run: bash ./gradlew assembleRelease --stacktrace
 
@@ -46,9 +45,3 @@ jobs:
       with:
         name: app-release-unsigned.apk
         path: app/build/outputs/apk/release/app-release-unsigned.apk
-
-    - name: 테스트용 Debug APK artifact 업로드
-      uses: actions/upload-artifact@v3
-      with:
-        name: app-debug.apk
-        path: app/build/outputs/apk/debug/app-debug.apk
