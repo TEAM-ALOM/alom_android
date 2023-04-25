@@ -28,7 +28,10 @@ class MainActivity : ComponentActivity() {
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.SpaceEvenly,
                     ) {
-                        InputStudentIdTextField()
+                        Column() {
+                            InputStudentIdTextField()
+                            AutoLoginCheckBox()
+                        }
                         LoginButton()
                     }
                 }
@@ -58,10 +61,14 @@ fun InputStudentIdTextField() {
 fun AutoLoginCheckBox() {
     val checkedState = remember { mutableStateOf(true) }
 
-    Row() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start,
+    ) {
         Checkbox(
             checked = checkedState.value,
             onCheckedChange = { checkedState.value = it },
+            modifier = Modifier.padding(start = 16.dp),
         )
         Text(
             "자동로그인",
@@ -89,6 +96,21 @@ fun LoginButton() {
 @Composable
 fun DefaultPreview() {
     AlomTheme {
-        InputStudentIdTextField()
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colors.background,
+        ) {
+            Column(
+                modifier = Modifier.padding(36.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceEvenly,
+            ) {
+                Column() {
+                    InputStudentIdTextField()
+                    AutoLoginCheckBox()
+                }
+                LoginButton()
+            }
+        }
     }
 }
