@@ -55,7 +55,6 @@ fun AttendanceScreen() {
                 modifier = Modifier.fillMaxWidth().padding(top = 80.dp),
                 contentPadding = PaddingValues(16.dp),
                 onClick = {
-                    // 로그인 로직 실행
                 },
             ) {
                 Text(
