@@ -37,7 +37,12 @@ fun AlomApp(
             modifier = modifier.padding(innerPadding),
         ) {
             composable(route = AlomScreen.Login.name) {
-                LoginScreen()
+                LoginScreen(
+                    onLoginButtonClicked = { studentId ->
+                        viewModel.setStudentId(studentId)
+                        navController.navigate(AlomScreen.Attendance.name)
+                    },
+                )
             }
             composable(route = AlomScreen.Attendance.name) {
                 AttendanceScreen()
