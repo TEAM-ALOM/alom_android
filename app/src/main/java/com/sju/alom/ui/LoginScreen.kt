@@ -45,6 +45,7 @@ fun LoginScreen(
                     value = textState.value,
                     onValueChange = { textValue -> textState.value = textValue },
                     label = { Text("ex)18011642") },
+                    singleLine = true,
                 )
             }
 
