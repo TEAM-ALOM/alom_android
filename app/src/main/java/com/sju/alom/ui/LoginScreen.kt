@@ -14,10 +14,8 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,8 +23,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun LoginScreen() {
-    var text by remember { mutableStateOf("") }
+fun LoginScreen(
+    onLoginButtonClicked: (String) -> Unit,
+) {
+    val textState = remember { mutableStateOf("") }
     val checkedState = remember { mutableStateOf(true) }
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -42,9 +42,10 @@ fun LoginScreen() {
             ) {
                 Text("학번")
                 OutlinedTextField(
-                    value = text,
-                    onValueChange = { text = it },
+                    value = textState.value,
+                    onValueChange = { textValue -> textState.value = textValue },
                     label = { Text("ex)18011642") },
+                    singleLine = true,
                 )
             }
 
@@ -66,7 +67,7 @@ fun LoginScreen() {
                 modifier = Modifier.fillMaxWidth().padding(top = 80.dp),
                 contentPadding = PaddingValues(16.dp),
                 onClick = {
-                    // 로그인 로직 실행
+                    onLoginButtonClicked(textState.value)
                 },
             ) {
                 Text(
@@ -81,5 +82,5 @@ fun LoginScreen() {
 @Preview
 @Composable
 fun LoginPreview() {
-    LoginScreen()
+    LoginScreen(onLoginButtonClicked = {})
 }
